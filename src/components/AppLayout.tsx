@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Home, ClipboardList, Camera, User, Settings, Stethoscope } from "lucide-react";
+import ThemeToggle from "@/components/ThemeToggle";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const navItems = [
@@ -90,14 +91,17 @@ const AppLayout = ({ children, hideNav }: AppLayoutProps) => {
 
           {/* User section */}
           <div className="px-4 py-4 border-t border-border">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center">
-                <span className="text-sm font-semibold text-primary-foreground">A</span>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center">
+                  <span className="text-sm font-semibold text-primary-foreground">A</span>
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-foreground">Anna Smith</p>
+                  <p className="text-[10px] text-muted-foreground">anna.smith@email.com</p>
+                </div>
               </div>
-              <div>
-                <p className="text-sm font-semibold text-foreground">Anna Smith</p>
-                <p className="text-[10px] text-muted-foreground">anna.smith@email.com</p>
-              </div>
+              <ThemeToggle />
             </div>
           </div>
         </aside>

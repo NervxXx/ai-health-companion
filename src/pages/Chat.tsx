@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ArrowLeft, MoreVertical, Paperclip, Mic, Send } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import MobileFrame from "@/components/MobileFrame";
+import AppLayout from "@/components/AppLayout";
 
 interface Message {
   id: number;
@@ -41,10 +41,10 @@ const Chat = () => {
   const [input, setInput] = useState("");
 
   return (
-    <MobileFrame>
-      <div className="flex flex-col h-full">
+    <AppLayout hideNav>
+      <div className="flex flex-col h-screen md:h-screen">
         {/* Header */}
-        <div className="flex items-center justify-between px-4 py-3 border-b border-border">
+        <div className="flex items-center justify-between px-4 md:px-8 py-3 border-b border-border bg-card">
           <button onClick={() => navigate(-1)} className="p-1">
             <ArrowLeft size={22} strokeWidth={1.5} className="text-foreground" />
           </button>
@@ -55,41 +55,43 @@ const Chat = () => {
         </div>
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
-          {messages.map((msg, i) => (
-            <motion.div
-              key={msg.id}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.08 }}
-              className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
-            >
-              <div className={`flex gap-2 max-w-[85%] ${msg.sender === "user" ? "flex-row-reverse" : ""}`}>
-                {msg.sender === "ai" && (
-                  <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1">
-                    <span className="text-xs font-bold text-primary">AI</span>
+        <div className="flex-1 overflow-y-auto px-4 md:px-8 py-4 space-y-3">
+          <div className="max-w-2xl mx-auto space-y-3">
+            {messages.map((msg, i) => (
+              <motion.div
+                key={msg.id}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.08 }}
+                className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
+              >
+                <div className={`flex gap-2 max-w-[85%] md:max-w-[60%] ${msg.sender === "user" ? "flex-row-reverse" : ""}`}>
+                  {msg.sender === "ai" && (
+                    <div className="w-7 h-7 md:w-9 md:h-9 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1">
+                      <span className="text-xs md:text-sm font-bold text-primary">AI</span>
+                    </div>
+                  )}
+                  <div>
+                    <div
+                      className={`px-4 py-2.5 text-sm leading-relaxed ${
+                        msg.sender === "user"
+                          ? "bg-primary text-primary-foreground rounded-[20px] rounded-tr-md"
+                          : "bg-muted text-foreground rounded-[20px] rounded-tl-md"
+                      }`}
+                    >
+                      {msg.text}
+                    </div>
+                    {msg.card && <DiagnosisCard data={msg.card} />}
                   </div>
-                )}
-                <div>
-                  <div
-                    className={`px-4 py-2.5 text-sm leading-relaxed ${
-                      msg.sender === "user"
-                        ? "bg-primary text-primary-foreground rounded-[20px] rounded-tr-md"
-                        : "bg-muted text-foreground rounded-[20px] rounded-tl-md"
-                    }`}
-                  >
-                    {msg.text}
-                  </div>
-                  {msg.card && <DiagnosisCard data={msg.card} />}
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            ))}
+          </div>
         </div>
 
         {/* Input */}
-        <div className="px-4 pb-8 pt-2 border-t border-border bg-card">
-          <div className="flex items-center gap-2 bg-muted rounded-2xl px-3 py-2">
+        <div className="px-4 md:px-8 pb-6 md:pb-4 pt-2 border-t border-border bg-card">
+          <div className="max-w-2xl mx-auto flex items-center gap-2 bg-muted rounded-2xl px-3 py-2">
             <button className="p-1.5 text-muted-foreground">
               <Paperclip size={20} strokeWidth={1.5} />
             </button>
@@ -108,7 +110,7 @@ const Chat = () => {
           </div>
         </div>
       </div>
-    </MobileFrame>
+    </AppLayout>
   );
 };
 

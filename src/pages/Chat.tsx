@@ -1,44 +1,114 @@
-import { useState } from "react";
-import { ArrowLeft, MoreVertical, Paperclip, Mic, Send } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { ArrowLeft, MoreVertical, Paperclip, Mic, Send, Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import AppLayout from "@/components/AppLayout";
+import { supabase } from "@/integrations/supabase/client";
 
 interface Message {
   id: number;
   text: string;
   sender: "user" | "ai";
-  card?: DiagnosisCardData;
 }
-
-interface DiagnosisCardData {
-  condition: string;
-  confidence: number;
-  symptoms: string[];
-  recommendation: string;
-}
-
-const initialMessages: Message[] = [
-  { id: 1, text: "I've been having a headache for the past two days, mainly around my forehead and temples. It gets worse in the afternoon.", sender: "user" },
-  { id: 2, text: "I understand you're experiencing headaches. Let me ask a few more questions. Do you feel any pressure behind your eyes or in your cheeks?", sender: "ai" },
-  { id: 3, text: "Yes, there's pressure behind my eyes and my nose feels congested too.", sender: "user" },
-  {
-    id: 4,
-    text: "Based on your symptoms, here's my assessment:",
-    sender: "ai",
-    card: {
-      condition: "Acute sinusitis",
-      confidence: 87,
-      symptoms: ["Facial pressure", "Nasal congestion", "Frontal headache"],
-      recommendation: "OTC decongestant (e.g., pseudoephedrine). Consult pharmacist if pregnant.",
-    },
-  },
-];
 
 const Chat = () => {
   const navigate = useNavigate();
-  const [messages] = useState<Message[]>(initialMessages);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const idCounter = useRef(1);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  const sendMessage = async () => {
+    const text = input.trim();
+    if (!text || isLoading) return;
+
+    const userMsg: Message = { id: idCounter.current++, text, sender: "user" };
+    setMessages((prev) => [...prev, userMsg]);
+    setInput("");
+    setIsLoading(true);
+
+    const history = [...messages, userMsg].map((m) => ({
+      role: m.sender === "user" ? "user" : ("assistant" as const),
+      content: m.text,
+    }));
+
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          },
+          body: JSON.stringify({ messages: history }),
+        }
+      );
+
+      if (!res.ok || !res.body) {
+        throw new Error(`Error: ${res.status}`);
+      }
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = "";
+      let assistantText = "";
+      const aiId = idCounter.current++;
+
+      setMessages((prev) => [...prev, { id: aiId, text: "", sender: "ai" }]);
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+
+        let newlineIdx: number;
+        while ((newlineIdx = buffer.indexOf("\n")) !== -1) {
+          let line = buffer.slice(0, newlineIdx);
+          buffer = buffer.slice(newlineIdx + 1);
+          if (line.endsWith("\r")) line = line.slice(0, -1);
+          if (!line.startsWith("data: ")) continue;
+
+          const jsonStr = line.slice(6).trim();
+          if (jsonStr === "[DONE]") break;
+
+          try {
+            const parsed = JSON.parse(jsonStr);
+            const content = parsed.choices?.[0]?.delta?.content;
+            if (content) {
+              assistantText += content;
+              const currentText = assistantText;
+              setMessages((prev) =>
+                prev.map((m) => (m.id === aiId ? { ...m, text: currentText } : m))
+              );
+            }
+          } catch {
+            // partial JSON, wait for more
+          }
+        }
+      }
+    } catch (err) {
+      console.error(err);
+      setMessages((prev) => [
+        ...prev,
+        { id: idCounter.current++, text: "Sorry, something went wrong. Please try again.", sender: "ai" },
+      ]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  };
 
   return (
     <AppLayout hideNav>
@@ -48,7 +118,10 @@ const Chat = () => {
           <button onClick={() => navigate(-1)} className="p-1">
             <ArrowLeft size={22} strokeWidth={1.5} className="text-foreground" />
           </button>
-          <h2 className="text-base font-semibold text-foreground">AI Doctor</h2>
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-success" />
+            <h2 className="text-base font-semibold text-foreground">AI Doctor</h2>
+          </div>
           <button className="p-1">
             <MoreVertical size={20} strokeWidth={1.5} className="text-muted-foreground" />
           </button>
@@ -57,12 +130,23 @@ const Chat = () => {
         {/* Messages */}
         <div className="flex-1 overflow-y-auto px-4 md:px-8 py-4 space-y-3">
           <div className="max-w-2xl mx-auto space-y-3">
+            {messages.length === 0 && (
+              <div className="flex flex-col items-center justify-center h-full py-20 text-center">
+                <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-4">
+                  <span className="text-2xl font-bold text-primary">AI</span>
+                </div>
+                <h3 className="text-lg font-semibold text-foreground mb-2">How can I help you?</h3>
+                <p className="text-sm text-muted-foreground max-w-xs">
+                  Describe your symptoms and I'll provide an assessment with recommendations.
+                </p>
+              </div>
+            )}
             {messages.map((msg, i) => (
               <motion.div
                 key={msg.id}
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.08 }}
+                transition={{ delay: i < 10 ? i * 0.05 : 0 }}
                 className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
               >
                 <div className={`flex gap-2 max-w-[85%] md:max-w-[60%] ${msg.sender === "user" ? "flex-row-reverse" : ""}`}>
@@ -71,21 +155,22 @@ const Chat = () => {
                       <span className="text-xs md:text-sm font-bold text-primary">AI</span>
                     </div>
                   )}
-                  <div>
-                    <div
-                      className={`px-4 py-2.5 text-sm leading-relaxed ${
-                        msg.sender === "user"
-                          ? "bg-primary text-primary-foreground rounded-[20px] rounded-tr-md"
-                          : "bg-muted text-foreground rounded-[20px] rounded-tl-md"
-                      }`}
-                    >
-                      {msg.text}
-                    </div>
-                    {msg.card && <DiagnosisCard data={msg.card} />}
+                  <div
+                    className={`px-4 py-2.5 text-sm leading-relaxed whitespace-pre-wrap ${
+                      msg.sender === "user"
+                        ? "bg-primary text-primary-foreground rounded-[20px] rounded-tr-md"
+                        : "bg-muted text-foreground rounded-[20px] rounded-tl-md"
+                    }`}
+                  >
+                    {msg.text}
+                    {msg.sender === "ai" && msg.text === "" && (
+                      <Loader2 size={16} className="animate-spin text-primary" />
+                    )}
                   </div>
                 </div>
               </motion.div>
             ))}
+            <div ref={messagesEndRef} />
           </div>
         </div>
 
@@ -98,14 +183,24 @@ const Chat = () => {
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
               placeholder="Type your symptoms..."
               className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground outline-none"
+              disabled={isLoading}
             />
             <button className="p-1.5 text-muted-foreground">
               <Mic size={20} strokeWidth={1.5} />
             </button>
-            <button className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-              <Send size={14} strokeWidth={2} className="text-primary-foreground" />
+            <button
+              onClick={sendMessage}
+              disabled={isLoading || !input.trim()}
+              className="w-8 h-8 rounded-full bg-primary flex items-center justify-center disabled:opacity-50 transition-opacity"
+            >
+              {isLoading ? (
+                <Loader2 size={14} className="animate-spin text-primary-foreground" />
+              ) : (
+                <Send size={14} strokeWidth={2} className="text-primary-foreground" />
+              )}
             </button>
           </div>
         </div>
@@ -113,61 +208,5 @@ const Chat = () => {
     </AppLayout>
   );
 };
-
-const DiagnosisCard = ({ data }: { data: DiagnosisCardData }) => (
-  <motion.div
-    initial={{ opacity: 0, scale: 0.95 }}
-    animate={{ opacity: 1, scale: 1 }}
-    className="mt-2 bg-card rounded-3xl p-4 card-shadow-md border border-border"
-  >
-    <p className="text-xs font-medium text-muted-foreground mb-1">Likely condition</p>
-    <h3 className="text-base font-bold text-foreground mb-3">{data.condition}</h3>
-
-    {/* Confidence */}
-    <div className="mb-3">
-      <div className="flex items-center justify-between mb-1">
-        <span className="text-xs text-muted-foreground">Confidence</span>
-        <span className="text-xs font-semibold text-primary">{data.confidence}%</span>
-      </div>
-      <div className="h-2 bg-muted rounded-full overflow-hidden">
-        <motion.div
-          initial={{ width: 0 }}
-          animate={{ width: `${data.confidence}%` }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="h-full bg-primary rounded-full"
-        />
-      </div>
-    </div>
-
-    {/* Symptoms */}
-    <div className="mb-3">
-      <p className="text-xs font-medium text-muted-foreground mb-1">Key symptoms</p>
-      <ul className="space-y-1">
-        {data.symptoms.map((s) => (
-          <li key={s} className="text-xs text-foreground flex items-center gap-1.5">
-            <span className="w-1 h-1 rounded-full bg-primary" />
-            {s}
-          </li>
-        ))}
-      </ul>
-    </div>
-
-    {/* Recommendation */}
-    <div className="bg-accent rounded-xl p-3 mb-3">
-      <p className="text-xs text-muted-foreground mb-0.5">Recommended action</p>
-      <p className="text-xs font-medium text-foreground">{data.recommendation}</p>
-    </div>
-
-    {/* Actions */}
-    <div className="flex gap-2">
-      <button className="flex-1 text-xs font-semibold py-2.5 bg-primary text-primary-foreground rounded-xl transition-transform active:scale-95">
-        Add to medication log
-      </button>
-      <button className="flex-1 text-xs font-semibold py-2.5 border border-border text-foreground rounded-xl transition-transform active:scale-95">
-        Book specialist
-      </button>
-    </div>
-  </motion.div>
-);
 
 export default Chat;

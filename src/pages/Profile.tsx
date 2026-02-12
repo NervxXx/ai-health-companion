@@ -1,4 +1,5 @@
-import { Edit3, ChevronRight, LogOut, Bell, Shield, Globe, FileText } from "lucide-react";
+import { Edit3, ChevronRight, LogOut, Bell, Shield, Globe, FileText, Moon, Sun } from "lucide-react";
+import { useTheme } from "@/hooks/use-theme";
 import AppLayout from "@/components/AppLayout";
 
 const settingsItems = [
@@ -9,6 +10,8 @@ const settingsItems = [
 ];
 
 const Profile = () => {
+  const { theme, toggleTheme } = useTheme();
+
   return (
     <AppLayout>
       <div className="px-5 md:px-8 pt-4 md:pt-8 pb-4">
@@ -56,6 +59,21 @@ const Profile = () => {
           <div>
             <h3 className="text-base font-semibold text-foreground mb-3 hidden md:block">Settings</h3>
             <div className="space-y-1">
+              {/* Theme toggle */}
+              <button
+                onClick={toggleTheme}
+                className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-accent transition-colors"
+              >
+                {theme === "dark" ? (
+                  <Sun size={20} strokeWidth={1.5} className="text-muted-foreground" />
+                ) : (
+                  <Moon size={20} strokeWidth={1.5} className="text-muted-foreground" />
+                )}
+                <span className="flex-1 text-sm text-foreground text-left">
+                  {theme === "dark" ? "Light mode" : "Dark mode"}
+                </span>
+                <ChevronRight size={16} className="text-muted-foreground" />
+              </button>
               {settingsItems.map((item) => (
                 <button
                   key={item.label}

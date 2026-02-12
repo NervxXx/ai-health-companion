@@ -57,7 +57,7 @@ const Diagnoses = () => {
         </div>
 
         {/* List */}
-        <div className="space-y-3 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-3 md:space-y-0">
+        <div className="space-y-3 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-3 md:space-y-0 [&>*]:min-w-0">
           {filtered.map((d, i) => (
             <motion.button
               key={d.id}
@@ -65,17 +65,17 @@ const Diagnoses = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
               onClick={() => navigate("/chat")}
-              className="w-full flex items-center gap-3 p-4 bg-card rounded-2xl card-shadow text-left hover:card-shadow-md transition-shadow"
+              className="w-full flex items-center gap-3 p-4 bg-card rounded-2xl card-shadow text-left hover:card-shadow-md transition-shadow min-w-0 overflow-hidden"
             >
               <div className={`w-2 h-2 rounded-full flex-shrink-0 ${
                 d.status === "active" ? "bg-success" : "bg-muted-foreground/30"
               }`} />
-              <div className="flex-1">
-                <p className="text-sm font-semibold text-foreground">{d.condition}</p>
-                <p className="text-xs text-muted-foreground">{d.date}</p>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-foreground truncate">{d.condition}</p>
+                <p className="text-xs text-muted-foreground truncate">{d.date}</p>
               </div>
-              <span className="text-xs font-semibold text-primary">{d.confidence}%</span>
-              <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full ${
+              <span className="text-xs font-semibold text-primary flex-shrink-0">{d.confidence}%</span>
+              <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full whitespace-nowrap flex-shrink-0 ${
                 d.status === "active"
                   ? "bg-success/10 text-success"
                   : "bg-muted text-muted-foreground"

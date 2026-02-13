@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import AppLayout from "@/components/AppLayout";
 import { supabase } from "@/integrations/supabase/client";
+import { useLanguage } from "@/hooks/use-language";
 
 interface Message {
   id: number;
@@ -13,6 +14,7 @@ interface Message {
 
 const Chat = () => {
   const navigate = useNavigate();
+  const { t } = useLanguage();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -96,7 +98,7 @@ const Chat = () => {
       console.error(err);
       setMessages((prev) => [
         ...prev,
-        { id: idCounter.current++, text: "Sorry, something went wrong. Please try again.", sender: "ai" },
+        { id: idCounter.current++, text: t("chat.error"), sender: "ai" },
       ]);
     } finally {
       setIsLoading(false);
@@ -120,7 +122,7 @@ const Chat = () => {
           </button>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-success" />
-            <h2 className="text-base font-semibold text-foreground">AI Doctor</h2>
+            <h2 className="text-base font-semibold text-foreground">{t("chat.aiDoctor")}</h2>
           </div>
           <button className="p-1">
             <MoreVertical size={20} strokeWidth={1.5} className="text-muted-foreground" />
@@ -135,9 +137,9 @@ const Chat = () => {
                 <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-4">
                   <span className="text-2xl font-bold text-primary">AI</span>
                 </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">How can I help you?</h3>
+                <h3 className="text-lg font-semibold text-foreground mb-2">{t("chat.howCanIHelp")}</h3>
                 <p className="text-sm text-muted-foreground max-w-xs">
-                  Describe your symptoms and I'll provide an assessment with recommendations.
+                  {t("chat.describeSymptoms")}
                 </p>
               </div>
             )}
@@ -184,7 +186,7 @@ const Chat = () => {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Type your symptoms..."
+              placeholder={t("chat.typeSymptoms")}
               className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground outline-none"
               disabled={isLoading}
             />

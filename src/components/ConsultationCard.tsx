@@ -1,5 +1,6 @@
 import { ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useLanguage } from "@/hooks/use-language";
 
 interface ConsultationCardProps {
   title: string;
@@ -10,6 +11,7 @@ interface ConsultationCardProps {
 
 const ConsultationCard = ({ title, date, status, icon }: ConsultationCardProps) => {
   const navigate = useNavigate();
+  const { t } = useLanguage();
 
   return (
     <button
@@ -29,7 +31,7 @@ const ConsultationCard = ({ title, date, status, icon }: ConsultationCardProps) 
             ? "bg-success/10 text-success"
             : "bg-muted text-muted-foreground"
         }`}>
-          {status === "active" ? "Active" : "Done"}
+          {status === "active" ? t("card.active") : t("card.done")}
         </span>
         <ChevronRight size={16} className="text-muted-foreground" />
       </div>

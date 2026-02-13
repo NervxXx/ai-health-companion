@@ -27,28 +27,31 @@ const Diagnoses = () => {
 
   return (
     <AppLayout>
-      <div className="px-5 md:px-8 pt-4 md:pt-8 pb-4">
-        <h1 className="text-xl md:text-2xl font-bold text-foreground mb-4">Your health history</h1>
+      <div className="space-y-5">
+        <div>
+          <h1 className="text-2xl md:text-3xl font-bold text-foreground">Health history</h1>
+          <p className="text-sm text-muted-foreground mt-1">Track and review all your past consultations</p>
+        </div>
 
         {/* Search */}
-        <div className="flex items-center gap-2 bg-muted rounded-2xl px-3 py-2.5 mb-4 max-w-lg">
+        <div className="flex items-center gap-2 bg-card rounded-xl px-4 py-3 card-shadow max-w-lg">
           <Search size={18} strokeWidth={1.5} className="text-muted-foreground" />
           <input
-            placeholder="Search by symptom or date"
+            placeholder="Search by symptom or date..."
             className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground outline-none"
           />
         </div>
 
         {/* Filters */}
-        <div className="flex gap-2 mb-4 overflow-x-auto scrollbar-hide">
+        <div className="flex gap-2 overflow-x-auto scrollbar-hide">
           {filters.map((f) => (
             <button
               key={f}
               onClick={() => setActiveFilter(f)}
-              className={`px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors ${
+              className={`px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition-all duration-150 ${
                 activeFilter === f
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-muted text-muted-foreground"
+                  ? "bg-primary text-primary-foreground shadow-sm"
+                  : "bg-card text-muted-foreground card-shadow hover:text-foreground"
               }`}
             >
               {f}
@@ -57,7 +60,7 @@ const Diagnoses = () => {
         </div>
 
         {/* List */}
-        <div className="space-y-3 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-3 md:space-y-0 [&>*]:min-w-0">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
           {filtered.map((d, i) => (
             <motion.button
               key={d.id}
@@ -65,24 +68,24 @@ const Diagnoses = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
               onClick={() => navigate("/chat")}
-              className="w-full flex items-center gap-3 p-4 bg-card rounded-2xl card-shadow text-left hover:card-shadow-md transition-shadow min-w-0 overflow-hidden"
+              className="w-full flex items-center gap-4 p-4 bg-card rounded-2xl card-shadow text-left hover:card-shadow-md hover:-translate-y-0.5 transition-all duration-200 min-w-0"
             >
-              <div className={`w-2 h-2 rounded-full flex-shrink-0 ${
+              <div className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${
                 d.status === "active" ? "bg-success" : "bg-muted-foreground/30"
               }`} />
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-foreground truncate">{d.condition}</p>
-                <p className="text-xs text-muted-foreground truncate">{d.date}</p>
+                <p className="text-sm font-semibold text-foreground break-words">{d.condition}</p>
+                <p className="text-xs text-muted-foreground mt-0.5">{d.date}</p>
               </div>
-              <span className="text-xs font-semibold text-primary flex-shrink-0">{d.confidence}%</span>
-              <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full whitespace-nowrap flex-shrink-0 ${
+              <span className="text-xs font-bold text-primary flex-shrink-0">{d.confidence}%</span>
+              <span className={`text-[10px] font-medium px-2.5 py-1 rounded-full whitespace-nowrap flex-shrink-0 ${
                 d.status === "active"
                   ? "bg-success/10 text-success"
                   : "bg-muted text-muted-foreground"
               }`}>
                 {d.status === "active" ? "Active" : "Resolved"}
               </span>
-              <ChevronRight size={16} className="text-muted-foreground" />
+              <ChevronRight size={16} className="text-muted-foreground flex-shrink-0" />
             </motion.button>
           ))}
         </div>

@@ -1,6 +1,7 @@
 import { Plus, AlertTriangle } from "lucide-react";
 import { motion } from "framer-motion";
 import AppLayout from "@/components/AppLayout";
+import { useLanguage } from "@/hooks/use-language";
 
 const recentScans = [
   { id: 1, type: "Skin rash", date: "Feb 9", color: "from-warning/20 to-warning/5" },
@@ -9,18 +10,17 @@ const recentScans = [
 ];
 
 const Lab = () => {
+  const { t } = useLanguage();
+
   return (
     <AppLayout>
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground">Visual check</h1>
-          <p className="text-sm text-muted-foreground mt-1">
-            Upload a photo for AI-powered visual analysis
-          </p>
+          <h1 className="text-2xl md:text-3xl font-bold text-foreground">{t("lab.title")}</h1>
+          <p className="text-sm text-muted-foreground mt-1">{t("lab.subtitle")}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Upload area */}
           <motion.button
             initial={{ opacity: 0, scale: 0.97 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -30,15 +30,14 @@ const Lab = () => {
               <Plus size={28} strokeWidth={1.5} className="text-primary" />
             </div>
             <div className="text-center">
-              <p className="text-sm font-semibold text-foreground">Upload or take photo</p>
-              <p className="text-xs text-muted-foreground mt-1">Skin, eye, throat, or wound</p>
+              <p className="text-sm font-semibold text-foreground">{t("lab.upload")}</p>
+              <p className="text-xs text-muted-foreground mt-1">{t("lab.skinEyeThroat")}</p>
             </div>
           </motion.button>
 
           <div className="space-y-5">
-            {/* Recent scans */}
             <div>
-              <h3 className="text-base font-semibold text-foreground mb-3">Recent scans</h3>
+              <h3 className="text-base font-semibold text-foreground mb-3">{t("lab.recentScans")}</h3>
               <div className="grid grid-cols-3 gap-3">
                 {recentScans.map((scan) => (
                   <div
@@ -55,12 +54,9 @@ const Lab = () => {
               </div>
             </div>
 
-            {/* Disclaimer */}
             <div className="flex items-start gap-3 p-4 bg-warning/5 rounded-xl border border-warning/10">
               <AlertTriangle size={16} className="text-warning mt-0.5 flex-shrink-0" />
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                AI analysis is not a definitive diagnosis. Always consult a qualified healthcare professional for medical advice.
-              </p>
+              <p className="text-xs text-muted-foreground leading-relaxed">{t("lab.disclaimer")}</p>
             </div>
           </div>
         </div>

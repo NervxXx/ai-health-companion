@@ -3,8 +3,7 @@ import { Search, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import AppLayout from "@/components/AppLayout";
-
-const filters = ["All", "Active", "Resolved", "Lab results"];
+import { useLanguage } from "@/hooks/use-language";
 
 const diagnoses = [
   { id: 1, condition: "Tension headache", date: "Feb 10, 2026", confidence: 92, status: "active" as const },
@@ -16,12 +15,14 @@ const diagnoses = [
 
 const Diagnoses = () => {
   const navigate = useNavigate();
-  const [activeFilter, setActiveFilter] = useState("All");
+  const { t } = useLanguage();
+  const filters = [t("diagnoses.all"), t("diagnoses.active"), t("diagnoses.resolved"), t("diagnoses.labResults")];
+  const [activeFilter, setActiveFilter] = useState(filters[0]);
 
   const filtered = diagnoses.filter((d) => {
-    if (activeFilter === "All") return true;
-    if (activeFilter === "Active") return d.status === "active";
-    if (activeFilter === "Resolved") return d.status === "resolved";
+    if (activeFilter === filters[0]) return true;
+    if (activeFilter === filters[1]) return d.status === "active";
+    if (activeFilter === filters[2]) return d.status === "resolved";
     return false;
   });
 
@@ -29,20 +30,18 @@ const Diagnoses = () => {
     <AppLayout>
       <div className="space-y-5">
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground">Health history</h1>
-          <p className="text-sm text-muted-foreground mt-1">Track and review all your past consultations</p>
+          <h1 className="text-2xl md:text-3xl font-bold text-foreground">{t("diagnoses.title")}</h1>
+          <p className="text-sm text-muted-foreground mt-1">{t("diagnoses.subtitle")}</p>
         </div>
 
-        {/* Search */}
         <div className="flex items-center gap-2 bg-card rounded-xl px-4 py-3 card-shadow max-w-lg">
           <Search size={18} strokeWidth={1.5} className="text-muted-foreground" />
           <input
-            placeholder="Search by symptom or date..."
+            placeholder={t("diagnoses.search")}
             className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground outline-none"
           />
         </div>
 
-        {/* Filters */}
         <div className="flex gap-2 overflow-x-auto scrollbar-hide">
           {filters.map((f) => (
             <button
@@ -59,7 +58,6 @@ const Diagnoses = () => {
           ))}
         </div>
 
-        {/* List */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
           {filtered.map((d, i) => (
             <motion.button
@@ -83,7 +81,7 @@ const Diagnoses = () => {
                   ? "bg-success/10 text-success"
                   : "bg-muted text-muted-foreground"
               }`}>
-                {d.status === "active" ? "Active" : "Resolved"}
+                {d.status === "active" ? t("diagnoses.active") : t("diagnoses.resolved")}
               </span>
               <ChevronRight size={16} className="text-muted-foreground flex-shrink-0" />
             </motion.button>

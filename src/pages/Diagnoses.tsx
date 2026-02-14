@@ -28,13 +28,13 @@ const Diagnoses = () => {
 
   return (
     <AppLayout>
-      <div className="space-y-5">
+      <div className="space-y-8">
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground">{t("diagnoses.title")}</h1>
-          <p className="text-sm text-muted-foreground mt-1">{t("diagnoses.subtitle")}</p>
+          <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground tracking-tight">{t("diagnoses.title")}</h1>
+          <p className="text-sm text-muted-foreground mt-2">{t("diagnoses.subtitle")}</p>
         </div>
 
-        <div className="flex items-center gap-2 bg-card rounded-xl px-4 py-3 card-shadow max-w-lg">
+        <div className="flex items-center gap-2 bg-card rounded-xl px-4 py-3.5 card-shadow max-w-lg">
           <Search size={18} strokeWidth={1.5} className="text-muted-foreground" />
           <input
             placeholder={t("diagnoses.search")}
@@ -42,14 +42,14 @@ const Diagnoses = () => {
           />
         </div>
 
-        <div className="flex gap-2 overflow-x-auto scrollbar-hide">
+        <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1">
           {filters.map((f) => (
             <button
               key={f}
               onClick={() => setActiveFilter(f)}
-              className={`px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition-all duration-150 ${
+              className={`px-4 py-2.5 rounded-xl text-xs font-medium whitespace-nowrap transition-all duration-150 ${
                 activeFilter === f
-                  ? "bg-primary text-primary-foreground shadow-sm"
+                  ? "bg-primary text-primary-foreground"
                   : "bg-card text-muted-foreground card-shadow hover:text-foreground"
               }`}
             >
@@ -58,25 +58,25 @@ const Diagnoses = () => {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+        <div className="space-y-3">
           {filtered.map((d, i) => (
             <motion.button
               key={d.id}
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.05 }}
+              transition={{ delay: i * 0.04 }}
               onClick={() => navigate("/chat")}
-              className="w-full flex items-center gap-4 p-4 bg-card rounded-2xl card-shadow text-left hover:card-shadow-md hover:-translate-y-0.5 transition-all duration-200 min-w-0"
+              className="w-full flex items-center gap-4 p-5 bg-card rounded-2xl card-shadow text-left hover:card-shadow-md hover:-translate-y-0.5 transition-all duration-200 min-w-0"
             >
-              <div className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${
-                d.status === "active" ? "bg-success" : "bg-muted-foreground/30"
+              <div className={`w-3 h-3 rounded-full flex-shrink-0 ${
+                d.status === "active" ? "bg-success" : "bg-muted-foreground/20"
               }`} />
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-semibold text-foreground break-words">{d.condition}</p>
-                <p className="text-xs text-muted-foreground mt-0.5">{d.date}</p>
+                <p className="text-xs text-muted-foreground mt-1">{d.date}</p>
               </div>
-              <span className="text-xs font-bold text-primary flex-shrink-0">{d.confidence}%</span>
-              <span className={`text-[10px] font-medium px-2.5 py-1 rounded-full whitespace-nowrap flex-shrink-0 ${
+              <span className="text-sm font-bold text-primary flex-shrink-0">{d.confidence}%</span>
+              <span className={`text-[11px] font-medium px-3 py-1.5 rounded-full whitespace-nowrap flex-shrink-0 ${
                 d.status === "active"
                   ? "bg-success/10 text-success"
                   : "bg-muted text-muted-foreground"

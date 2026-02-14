@@ -15,6 +15,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ["Inter", "system-ui", "-apple-system", "sans-serif"],
+        display: ["Plus Jakarta Sans", "Inter", "system-ui", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -70,7 +71,7 @@ export default {
         },
       },
       borderRadius: {
-        "2xl": "1.5rem",
+        "2xl": "1.25rem",
         xl: "1rem",
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",

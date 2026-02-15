@@ -95,6 +95,19 @@ const translations: Translations = {
   // Misc
   "misc.menu": { en: "Menu", ru: "Меню" },
   "misc.aiPowered": { en: "AI-Powered", ru: "На базе ИИ" },
+
+  // Medical data
+  "condition.tensionHeadache": { en: "Tension headache", ru: "Головная боль напряжения" },
+  "condition.acuteSinusitis": { en: "Acute sinusitis", ru: "Острый синусит" },
+  "condition.seasonalAllergies": { en: "Seasonal allergies", ru: "Сезонная аллергия" },
+  "condition.lowerBackStrain": { en: "Lower back strain", ru: "Растяжение поясницы" },
+  "condition.mildDehydration": { en: "Mild dehydration", ru: "Лёгкое обезвоживание" },
+  "condition.lowerBackPain": { en: "Lower back pain", ru: "Боль в пояснице" },
+
+  // Lab scans
+  "scan.skinRash": { en: "Skin rash", ru: "Кожная сыпь" },
+  "scan.throat": { en: "Throat", ru: "Горло" },
+  "scan.eyeCheck": { en: "Eye check", ru: "Проверка глаз" },
 };
 
 interface LanguageContextType {

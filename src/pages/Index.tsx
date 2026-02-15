@@ -98,9 +98,9 @@ const Index = () => {
             </button>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-            <ConsultationCard title="Tension headache" date={t("card.daysAgo")} status="active" icon="🧠" />
-            <ConsultationCard title="Seasonal allergies" date={t("card.5daysAgo")} status="completed" icon="🤧" />
-            <ConsultationCard title="Lower back pain" date={t("card.1weekAgo")} status="completed" icon="🦴" />
+            <ConsultationCard title={t("condition.tensionHeadache")} date={t("card.daysAgo")} status="active" icon="🧠" />
+            <ConsultationCard title={t("condition.seasonalAllergies")} date={t("card.5daysAgo")} status="completed" icon="🤧" />
+            <ConsultationCard title={t("condition.lowerBackPain")} date={t("card.1weekAgo")} status="completed" icon="🦴" />
           </div>
         </section>
       </div>

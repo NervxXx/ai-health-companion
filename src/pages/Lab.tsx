@@ -3,14 +3,15 @@ import { motion } from "framer-motion";
 import AppLayout from "@/components/AppLayout";
 import { useLanguage } from "@/hooks/use-language";
 
-const recentScans = [
-  { id: 1, type: "Skin rash", date: "Feb 9", color: "bg-warning/10" },
-  { id: 2, type: "Throat", date: "Jan 30", color: "bg-primary/10" },
-  { id: 3, type: "Eye check", date: "Jan 22", color: "bg-success/10" },
+const getRecentScans = (t: (key: string) => string) => [
+  { id: 1, type: t("scan.skinRash"), date: "Feb 9", color: "bg-warning/10" },
+  { id: 2, type: t("scan.throat"), date: "Jan 30", color: "bg-primary/10" },
+  { id: 3, type: t("scan.eyeCheck"), date: "Jan 22", color: "bg-success/10" },
 ];
 
 const Lab = () => {
   const { t } = useLanguage();
+  const recentScans = getRecentScans(t);
 
   return (
     <AppLayout>

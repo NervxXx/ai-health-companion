@@ -5,17 +5,18 @@ import { motion } from "framer-motion";
 import AppLayout from "@/components/AppLayout";
 import { useLanguage } from "@/hooks/use-language";
 
-const diagnoses = [
-  { id: 1, condition: "Tension headache", date: "Feb 10, 2026", confidence: 92, status: "active" as const },
-  { id: 2, condition: "Acute sinusitis", date: "Feb 8, 2026", confidence: 87, status: "active" as const },
-  { id: 3, condition: "Seasonal allergies", date: "Feb 5, 2026", confidence: 94, status: "resolved" as const },
-  { id: 4, condition: "Lower back strain", date: "Feb 1, 2026", confidence: 78, status: "resolved" as const },
-  { id: 5, condition: "Mild dehydration", date: "Jan 28, 2026", confidence: 90, status: "resolved" as const },
+const getDiagnoses = (t: (key: string) => string) => [
+  { id: 1, condition: t("condition.tensionHeadache"), date: "Feb 10, 2026", confidence: 92, status: "active" as const },
+  { id: 2, condition: t("condition.acuteSinusitis"), date: "Feb 8, 2026", confidence: 87, status: "active" as const },
+  { id: 3, condition: t("condition.seasonalAllergies"), date: "Feb 5, 2026", confidence: 94, status: "resolved" as const },
+  { id: 4, condition: t("condition.lowerBackStrain"), date: "Feb 1, 2026", confidence: 78, status: "resolved" as const },
+  { id: 5, condition: t("condition.mildDehydration"), date: "Jan 28, 2026", confidence: 90, status: "resolved" as const },
 ];
 
 const Diagnoses = () => {
   const navigate = useNavigate();
   const { t } = useLanguage();
+  const diagnoses = getDiagnoses(t);
   const filters = [t("diagnoses.all"), t("diagnoses.active"), t("diagnoses.resolved"), t("diagnoses.labResults")];
   const [activeFilter, setActiveFilter] = useState(filters[0]);
 

@@ -105,7 +105,7 @@ const AppLayout = ({ children, hideNav }: AppLayoutProps) => {
               className="fixed right-0 top-0 bottom-0 z-50 w-72 bg-card border-l border-border p-6 flex flex-col"
             >
               <div className="flex items-center justify-between mb-8">
-                <span className="text-base font-display font-bold text-foreground">Menu</span>
+                <span className="text-base font-display font-bold text-foreground">{t("misc.menu")}</span>
                 <button onClick={() => setMenuOpen(false)} className="p-2 rounded-xl hover:bg-muted transition-colors">
                   <X size={20} strokeWidth={1.5} className="text-foreground" />
                 </button>

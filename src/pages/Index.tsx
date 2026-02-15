@@ -64,7 +64,7 @@ const Index = () => {
           <div className="relative max-w-xl">
             <div className="flex items-center gap-2 mb-4">
               <Sparkles size={16} className="text-primary" />
-              <span className="text-xs font-semibold text-primary uppercase tracking-wider">AI-Powered</span>
+              <span className="text-xs font-semibold text-primary uppercase tracking-wider">{t("misc.aiPowered")}</span>
             </div>
             <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-3 leading-snug">{t("home.howFeeling")}</h2>
             <p className="text-sm text-muted-foreground mb-6 leading-relaxed max-w-md">{t("home.describeSymptoms")}</p>

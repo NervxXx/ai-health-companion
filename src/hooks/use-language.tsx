@@ -91,6 +91,10 @@ const translations: Translations = {
   "chat.describeSymptoms": { en: "Describe your symptoms and I'll provide an assessment with recommendations.", ru: "Опишите ваши симптомы, и я предоставлю оценку с рекомендациями." },
   "chat.typeSymptoms": { en: "Type your symptoms...", ru: "Опишите симптомы..." },
   "chat.error": { en: "Sorry, something went wrong. Please try again.", ru: "Извините, произошла ошибка. Попробуйте снова." },
+
+  // Misc
+  "misc.menu": { en: "Menu", ru: "Меню" },
+  "misc.aiPowered": { en: "AI-Powered", ru: "На базе ИИ" },
 };
 
 interface LanguageContextType {

@@ -10,6 +10,7 @@ import Chat from "./pages/Chat";
 import Diagnoses from "./pages/Diagnoses";
 import Lab from "./pages/Lab";
 import Profile from "./pages/Profile";
+import VisitPrep from "./pages/VisitPrep";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ const App = () => (
             <Route path="/chat" element={<Chat />} />
             <Route path="/diagnoses" element={<Diagnoses />} />
             <Route path="/lab" element={<Lab />} />
+            <Route path="/visit-prep" element={<VisitPrep />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/settings" element={<Profile />} />
             <Route path="*" element={<NotFound />} />

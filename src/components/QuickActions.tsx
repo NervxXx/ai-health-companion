@@ -1,4 +1,4 @@
-import { Stethoscope, Pill, FlaskConical, HeartPulse } from "lucide-react";
+import { Stethoscope, Pill, FlaskConical, HeartPulse, ClipboardList } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "@/hooks/use-language";
 
@@ -11,10 +11,11 @@ const QuickActions = () => {
     { icon: Pill, label: t("action.medicines"), description: t("action.drugInteractions"), path: "/chat", color: "bg-warning/8" },
     { icon: FlaskConical, label: t("action.labTests"), description: t("action.uploadAnalyze"), path: "/lab", color: "bg-success/8" },
     { icon: HeartPulse, label: t("action.chronicCare"), description: t("action.trackConditions"), path: "/diagnoses", color: "bg-destructive/8" },
+    { icon: ClipboardList, label: t("action.visitPrep"), description: t("action.visitPrepDesc"), path: "/visit-prep", color: "bg-accent" },
   ];
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
       {actions.map((action) => (
         <button
           key={action.label}

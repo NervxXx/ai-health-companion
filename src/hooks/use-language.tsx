@@ -108,6 +108,24 @@ const translations: Translations = {
   "scan.skinRash": { en: "Skin rash", ru: "Кожная сыпь" },
   "scan.throat": { en: "Throat", ru: "Горло" },
   "scan.eyeCheck": { en: "Eye check", ru: "Проверка глаз" },
+
+  // Visit Prep
+  "visitPrep.title": { en: "Visit Prep", ru: "Подготовка к визиту" },
+  "visitPrep.heading": { en: "Prepare for your doctor visit", ru: "Подготовьтесь к визиту к врачу" },
+  "visitPrep.description": { en: "AI will analyze your symptoms and conditions to generate a personalized list of questions you should ask your doctor.", ru: "ИИ проанализирует ваши симптомы и состояния и сгенерирует персонализированный список вопросов, которые стоит задать врачу." },
+  "visitPrep.symptomsLabel": { en: "Current symptoms", ru: "Текущие симптомы" },
+  "visitPrep.symptomsPlaceholder": { en: "Describe what's bothering you...", ru: "Опишите, что вас беспокоит..." },
+  "visitPrep.conditionsLabel": { en: "Known conditions & medications", ru: "Известные заболевания и лекарства" },
+  "visitPrep.conditionsPlaceholder": { en: "E.g. diabetes, hypertension, aspirin...", ru: "Напр. диабет, гипертония, аспирин..." },
+  "visitPrep.generate": { en: "Generate questions", ru: "Сгенерировать вопросы" },
+  "visitPrep.generating": { en: "Generating...", ru: "Генерация..." },
+  "visitPrep.questionsTitle": { en: "Questions to ask your doctor", ru: "Вопросы для врача" },
+  "visitPrep.tipsTitle": { en: "Tips for your visit", ru: "Советы к визиту" },
+  "visitPrep.newPrep": { en: "Prepare for another visit", ru: "Подготовиться к другому визиту" },
+  "visitPrep.error": { en: "Failed to generate questions. Please try again.", ru: "Не удалось сгенерировать вопросы. Попробуйте снова." },
+  "visitPrep.disclaimer": { en: "AI-generated questions are suggestions only. Always discuss all concerns with your healthcare provider.", ru: "Сгенерированные ИИ вопросы являются лишь рекомендациями. Всегда обсуждайте все проблемы с вашим лечащим врачом." },
+  "action.visitPrep": { en: "Visit prep", ru: "К визиту" },
+  "action.visitPrepDesc": { en: "Questions for doctor", ru: "Вопросы для врача" },
 };
 
 interface LanguageContextType {

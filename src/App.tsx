@@ -11,6 +11,7 @@ import Diagnoses from "./pages/Diagnoses";
 import Lab from "./pages/Lab";
 import Profile from "./pages/Profile";
 import VisitPrep from "./pages/VisitPrep";
+import Subscription from "./pages/Subscription";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -31,6 +32,7 @@ const App = () => (
             <Route path="/visit-prep" element={<VisitPrep />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/settings" element={<Profile />} />
+            <Route path="/subscription" element={<Subscription />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

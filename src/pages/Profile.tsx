@@ -1,12 +1,14 @@
-import { Edit3, ChevronRight, LogOut, Bell, Shield, Globe, FileText, Moon, Sun, Check } from "lucide-react";
+import { Edit3, ChevronRight, LogOut, Bell, Shield, Globe, FileText, Moon, Sun, Check, CreditCard } from "lucide-react";
 import { useTheme } from "@/hooks/use-theme";
 import { useLanguage } from "@/hooks/use-language";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AppLayout from "@/components/AppLayout";
 
 const Profile = () => {
   const { theme, toggleTheme } = useTheme();
   const { language, setLanguage, t } = useLanguage();
+  const navigate = useNavigate();
   const [showLangPicker, setShowLangPicker] = useState(false);
 
   const settingsItems = [
@@ -60,6 +62,16 @@ const Profile = () => {
           <div className="bg-card rounded-2xl p-6 card-shadow">
             <h3 className="text-sm font-semibold text-foreground mb-5">{t("profile.settings")}</h3>
             <div className="space-y-1">
+              {/* Subscription */}
+              <button
+                onClick={() => navigate("/subscription")}
+                className="w-full flex items-center gap-3 p-3.5 rounded-xl hover:bg-accent transition-colors"
+              >
+                <CreditCard size={18} strokeWidth={1.5} className="text-muted-foreground" />
+                <span className="flex-1 text-sm text-foreground text-left">{t("profile.subscription")}</span>
+                <ChevronRight size={16} className="text-muted-foreground" />
+              </button>
+
               {/* Theme */}
               <button
                 onClick={toggleTheme}

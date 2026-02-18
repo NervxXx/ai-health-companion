@@ -126,6 +126,32 @@ const translations: Translations = {
   "visitPrep.disclaimer": { en: "AI-generated questions are suggestions only. Always discuss all concerns with your healthcare provider.", ru: "Сгенерированные ИИ вопросы являются лишь рекомендациями. Всегда обсуждайте все проблемы с вашим лечащим врачом." },
   "action.visitPrep": { en: "Visit prep", ru: "К визиту" },
   "action.visitPrepDesc": { en: "Questions for doctor", ru: "Вопросы для врача" },
+
+  // Subscription
+  "sub.title": { en: "Subscription", ru: "Подписка" },
+  "sub.subtitle": { en: "Choose the plan that's right for you", ru: "Выберите подходящий план" },
+  "sub.free": { en: "Free", ru: "Бесплатный" },
+  "sub.pro": { en: "Pro", ru: "Про" },
+  "sub.premium": { en: "Premium", ru: "Премиум" },
+  "sub.perMonth": { en: "month", ru: "мес" },
+  "sub.popular": { en: "Most popular", ru: "Популярный" },
+  "sub.currentPlan": { en: "Selected plan", ru: "Выбранный план" },
+  "sub.changePlan": { en: "You can change your plan at any time", ru: "Вы можете сменить план в любое время" },
+  "sub.upgrade": { en: "Upgrade", ru: "Перейти" },
+  "sub.currentPlanBtn": { en: "Current plan", ru: "Текущий план" },
+  "sub.free1": { en: "3 AI consultations / month", ru: "3 AI-консультации / мес" },
+  "sub.free2": { en: "Basic symptom check", ru: "Базовая проверка симптомов" },
+  "sub.free3": { en: "Health score tracking", ru: "Отслеживание здоровья" },
+  "sub.pro1": { en: "Unlimited consultations", ru: "Безлимитные консультации" },
+  "sub.pro2": { en: "Visual AI analysis", ru: "Визуальный AI-анализ" },
+  "sub.pro3": { en: "Visit prep coach", ru: "Подготовка к визиту" },
+  "sub.pro4": { en: "Priority responses", ru: "Приоритетные ответы" },
+  "sub.prem1": { en: "Everything in Pro", ru: "Всё из Про" },
+  "sub.prem2": { en: "Family accounts (up to 5)", ru: "Семейные аккаунты (до 5)" },
+  "sub.prem3": { en: "Lab results analysis", ru: "Анализ результатов лаборатории" },
+  "sub.prem4": { en: "Chronic care management", ru: "Управление хроническими заболеваниями" },
+  "sub.prem5": { en: "24/7 priority support", ru: "Поддержка 24/7" },
+  "profile.subscription": { en: "Subscription", ru: "Подписка" },
 };
 
 interface LanguageContextType {

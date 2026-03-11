@@ -3,15 +3,15 @@ import { motion } from "framer-motion";
 import AppLayout from "@/components/AppLayout";
 import { useLanguage } from "@/hooks/use-language";
 
-const getRecentScans = (t: (key: string) => string) => [
-  { id: 1, type: t("scan.skinRash"), date: "Feb 9", color: "bg-warning/10" },
-  { id: 2, type: t("scan.throat"), date: "Jan 30", color: "bg-primary/10" },
-  { id: 3, type: t("scan.eyeCheck"), date: "Jan 22", color: "bg-success/10" },
+const getRecentScans = () => [
+  { id: 1, type: "scan.skinRash", date: new Date(2026, 1, 9), color: "bg-warning/10" },
+  { id: 2, type: "scan.throat", date: new Date(2026, 0, 30), color: "bg-primary/10" },
+  { id: 3, type: "scan.eyeCheck", date: new Date(2026, 0, 22), color: "bg-success/10" },
 ];
 
 const Lab = () => {
-  const { t } = useLanguage();
-  const recentScans = getRecentScans(t);
+  const { t, formatDate } = useLanguage();
+  const recentScans = getRecentScans();
 
   return (
     <AppLayout>
@@ -49,8 +49,8 @@ const Lab = () => {
                       <span className="text-xl">📷</span>
                     </div>
                     <div className="flex-1">
-                      <p className="text-sm font-semibold text-foreground">{scan.type}</p>
-                      <p className="text-xs text-muted-foreground mt-0.5">{scan.date}</p>
+                      <p className="text-sm font-semibold text-foreground">{t(scan.type)}</p>
+                      <p className="text-xs text-muted-foreground mt-0.5">{formatDate(scan.date)}</p>
                     </div>
                   </div>
                 ))}

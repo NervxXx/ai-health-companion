@@ -78,6 +78,7 @@ const translations: Translations = {
   "profile.settings": { en: "Settings", ru: "Настройки" },
   "profile.darkMode": { en: "Dark mode", ru: "Тёмная тема" },
   "profile.lightMode": { en: "Light mode", ru: "Светлая тема" },
+  "profile.theme": { en: "Theme", ru: "Тема" },
   "profile.notifications": { en: "Notification settings", ru: "Уведомления" },
   "profile.privacy": { en: "Privacy & security", ru: "Конфиденциальность" },
   "profile.language": { en: "Language", ru: "Язык" },
@@ -95,6 +96,20 @@ const translations: Translations = {
   // Misc
   "misc.menu": { en: "Menu", ru: "Меню" },
   "misc.aiPowered": { en: "AI-Powered", ru: "На базе ИИ" },
+
+  // Months
+  "month.jan": { en: "Jan", ru: "янв" },
+  "month.feb": { en: "Feb", ru: "фев" },
+  "month.mar": { en: "Mar", ru: "мар" },
+  "month.apr": { en: "Apr", ru: "апр" },
+  "month.may": { en: "May", ru: "май" },
+  "month.jun": { en: "Jun", ru: "июн" },
+  "month.jul": { en: "Jul", ru: "июл" },
+  "month.aug": { en: "Aug", ru: "авг" },
+  "month.sep": { en: "Sep", ru: "сен" },
+  "month.oct": { en: "Oct", ru: "окт" },
+  "month.nov": { en: "Nov", ru: "ноя" },
+  "month.dec": { en: "Dec", ru: "дек" },
 
   // Medical data
   "condition.tensionHeadache": { en: "Tension headache", ru: "Головная боль напряжения" },
@@ -151,19 +166,190 @@ const translations: Translations = {
   "sub.prem3": { en: "Lab results analysis", ru: "Анализ результатов лаборатории" },
   "sub.prem4": { en: "Chronic care management", ru: "Управление хроническими заболеваниями" },
   "sub.prem5": { en: "24/7 priority support", ru: "Поддержка 24/7" },
+  "profile.medicalCard": { en: "Detailed Medical Card", ru: "Медицинская карта (подробная)" },
   "profile.subscription": { en: "Subscription", ru: "Подписка" },
+  "profile.editProfile": { en: "Edit Profile", ru: "Редактировать профиль" },
+  "profile.updateUsername": { en: "Update Username", ru: "Обновить имя пользователя" },
+  "profile.enterNewUsername": { en: "Enter new username", ru: "Введите новое имя пользователя" },
+  "profile.save": { en: "Save", ru: "Сохранить" },
+  "profile.resetPassword": { en: "Reset Password", ru: "Сбросить пароль" },
+  "profile.deleteAllData": { en: "Delete All Data", ru: "Удалить все данные" },
+  "profile.deleteAllDataConfirm": { en: "Are you sure you want to delete all your data? This action cannot be undone.", ru: "Вы уверены, что хотите удалить все данные? Это действие нельзя отменить." },
+  "profile.deleteAccount": { en: "Delete Account", ru: "Удалить аккаунт" },
+  "profile.deleteAccountConfirm": { en: "Are you sure you want to delete your account? This action cannot be undone.", ru: "Вы уверены, что хотите удалить аккаунт? Это действие нельзя отменить." },
+  "profile.logoutAllDevices": { en: "Logout from All Devices", ru: "Выйти со всех устройств" },
+  "profile.cancel": { en: "Cancel", ru: "Отмена" },
+  "profile.delete": { en: "Delete", ru: "Удалить" },
+
+  // Auth
+  "auth.login.title": { en: "Sign In", ru: "Вход" },
+  "auth.login.emailPlaceholder": { en: "Enter email", ru: "Введите почту" },
+  "auth.login.passwordPlaceholder": { en: "••••••••", ru: "••••••••" },
+  "auth.login.signIn": { en: "Sign In", ru: "Войти" },
+  "auth.login.signingIn": { en: "Signing in...", ru: "Вход..." },
+  "auth.login.forgotPassword": { en: "Forgot password?", ru: "Забыли пароль?" },
+  "auth.login.registerCTA": { en: "Create account", ru: "Создать аккаунт" },
+  "auth.login.error": { en: "Invalid email or password", ru: "Неверный email или пароль" },
+  "auth.login.legalDisclaimerPrefix": { en: "By signing in, you agree to our", ru: "Входя, вы соглашаетесь с" },
+  "auth.login.legalDisclaimerConnector": { en: "and", ru: "и" },
+  "auth.login.legalDisclaimerSuffix": { en: "", ru: "" },
+  "auth.login.termsLink": { en: "Terms of Service", ru: "Условиями использования" },
+  "auth.login.privacyLink": { en: "Privacy Policy", ru: "Политикой конфиденциальности" },
+  "auth.login.orSeparator": { en: "or", ru: "или" },
+
+  "auth.register.title": { en: "Create Account", ru: "Регистрация" },
+  "auth.register.subtitle": { en: "Join us today", ru: "Присоединяйтесь к нам" },
+  "auth.register.emailPlaceholder": { en: "Enter email", ru: "Введите почту" },
+  "auth.register.usernamePlaceholder": { en: "Username", ru: "Имя пользователя" },
+  "auth.register.passwordPlaceholder": { en: "Password", ru: "Пароль" },
+  "auth.register.confirmPasswordPlaceholder": { en: "Confirm password", ru: "Подтвердите пароль" },
+  "auth.register.codePlaceholder": { en: "Code", ru: "Код" },
+  "auth.register.sendCode": { en: "Send code", ru: "Отправить код" },
+  "auth.register.createAccount": { en: "Create Account", ru: "Создать аккаунт" },
+  "auth.register.creatingAccount": { en: "Creating...", ru: "Создание..." },
+  "auth.register.alreadyHaveAccount": { en: "Already have an account?", ru: "Уже есть аккаунт?" },
+  "auth.register.loginCTA": { en: "Sign In", ru: "Войти" },
+  "auth.register.passwordsNotMatch": { en: "Passwords do not match", ru: "Пароли не совпадают" },
+  "auth.register.error": { en: "Registration failed", ru: "Ошибка регистрации" },
+  "auth.register.legalDisclaimerPrefix": { en: "By registering, you agree to our", ru: "Регистрируясь, вы соглашаетесь с" },
+  "auth.register.legalDisclaimerConnector": { en: "and", ru: "и" },
+  "auth.register.legalDisclaimerSuffix": { en: "", ru: "" },
+  "auth.register.termsLink": { en: "Terms of Service", ru: "Условиями использования" },
+  "auth.register.privacyLink": { en: "Privacy Policy", ru: "Политикой конфиденциальности" },
+
+  "auth.forgotPassword.title": { en: "Reset Password", ru: "Сброс пароля" },
+  "auth.forgotPassword.subtitle": { en: "Enter your email to receive a reset code", ru: "Введите email для получения кода сброса" },
+  "auth.forgotPassword.email": { en: "Email", ru: "Email" },
+  "auth.forgotPassword.emailPlaceholder": { en: "your@email.com", ru: "ваш@email.com" },
+  "auth.forgotPassword.sendLink": { en: "Send Code", ru: "Отправить код" },
+  "auth.forgotPassword.backToLogin": { en: "Back to Sign In", ru: "Вернуться к входу" },
+  "auth.forgotPassword.emailNotFound": { en: "Email not found", ru: "Email не найден" },
+  "auth.forgotPassword.errorSending": { en: "Failed to send code", ru: "Не удалось отправить код" },
+  "auth.forgotPassword.codeTitle": { en: "Enter Code", ru: "Введите код" },
+  "auth.forgotPassword.codeDescription": { en: "We sent a code to {email}", ru: "Мы отправили код на {email}" },
+  "auth.forgotPassword.codeLabel": { en: "Verification code", ru: "Код подтверждения" },
+  "auth.forgotPassword.codePlaceholder": { en: "000000", ru: "000000" },
+  "auth.forgotPassword.verifyCode": { en: "Verify Code", ru: "Подтвердить код" },
+  "auth.forgotPassword.verifying": { en: "Verifying...", ru: "Проверка..." },
+  "auth.forgotPassword.codeInvalid": { en: "Invalid code", ru: "Неверный код" },
+  "auth.forgotPassword.codeExpired": { en: "Code expired", ru: "Код истёк" },
+  "auth.forgotPassword.success": { en: "Code verified successfully", ru: "Код подтверждён" },
+  "auth.forgotPassword.successResendQuestion": { en: "Didn't receive it?", ru: "Не получили?" },
+  "auth.forgotPassword.successResendCta": { en: "Send again", ru: "Отправить снова" },
+
+  "auth.resetPassword.title": { en: "New Password", ru: "Новый пароль" },
+  "auth.resetPassword.subtitle": { en: "Create a strong password", ru: "Придумайте надёжный пароль" },
+  "auth.resetPassword.newPassword": { en: "New password", ru: "Новый пароль" },
+  "auth.resetPassword.confirmPassword": { en: "Confirm password", ru: "Подтвердите пароль" },
+  "auth.resetPassword.submit": { en: "Save Password", ru: "Сохранить пароль" },
+  "auth.resetPassword.success": { en: "Password updated successfully", ru: "Пароль успешно изменён" },
+
+  // Health Card
+  "healthCard.title": { en: "Medical Card", ru: "Медицинская карта" },
+  "healthCard.subtitle": { en: "Your personal health profile", ru: "Ваш личный профиль здоровья" },
+  "healthCard.completeness": { en: "Card completeness", ru: "Полнота карты" },
+  "healthCard.profileComplete": { en: "Complete", ru: "Заполнено" },
+
+  "healthCard.stage1": { en: "Basic block (required)", ru: "Базовый блок (обязательно)" },
+  "healthCard.sex": { en: "Sex", ru: "Пол" },
+  "healthCard.male": { en: "Male", ru: "Мужской" },
+  "healthCard.female": { en: "Female", ru: "Женский" },
+  "healthCard.birthDate": { en: "Date of birth", ru: "Дата рождения" },
+  "healthCard.height": { en: "Height (cm)", ru: "Рост (см)" },
+  "healthCard.weight": { en: "Weight (kg)", ru: "Вес (кг)" },
+  "healthCard.bmi": { en: "BMI", ru: "ИМТ" },
+  "healthCard.bloodType": { en: "Blood type", ru: "Группа крови" },
+  "healthCard.rhFactor": { en: "Rh factor", ru: "Резус-фактор" },
+  "healthCard.allergies": { en: "Allergies", ru: "Аллергии" },
+  "healthCard.drugAllergies": { en: "Drug allergies", ru: "Лекарственные" },
+  "healthCard.foodAllergies": { en: "Food allergies", ru: "Пищевые" },
+  "healthCard.seasonalAllergies": { en: "Seasonal allergies", ru: "Сезонные (поллиноз)" },
+  "healthCard.allergyPlaceholder": { en: "Add and press Enter", ru: "Введите и нажмите Enter" },
+
+  "healthCard.stage2": { en: "Medical profile (chronicle)", ru: "Медицинский профиль (хроника)" },
+  "healthCard.chronicDiseases": { en: "Chronic diseases", ru: "Хронические заболевания" },
+  "healthCard.chronicPlaceholder": { en: "Search disease…", ru: "Поиск заболевания…" },
+  "healthCard.medications": { en: "Medications (permanent)", ru: "Постоянные препараты" },
+  "healthCard.medName": { en: "Drug name", ru: "Название препарата" },
+  "healthCard.medDose": { en: "Dosage", ru: "Дозировка" },
+  "healthCard.medFreq": { en: "Frequency", ru: "Частота" },
+  "healthCard.addMed": { en: "+ Add medication", ru: "+ Добавить препарат" },
+  "healthCard.surgeries": { en: "Surgeries & injuries", ru: "Операции и травмы" },
+  "healthCard.surgeryDesc": { en: "Description", ru: "Описание" },
+  "healthCard.surgeryYear": { en: "Year", ru: "Год" },
+  "healthCard.addSurgery": { en: "+ Add surgery/injury", ru: "+ Добавить операцию/травму" },
+  "healthCard.familyHistory": { en: "Family history", ru: "Наследственность" },
+  "healthCard.familyCardio": { en: "Heart attack / stroke (parents)", ru: "Инфаркт / инсульт (у родителей)" },
+  "healthCard.familyOncology": { en: "Oncology (parents)", ru: "Онкология (у родителей)" },
+  "healthCard.familyDiabetes": { en: "Diabetes (parents)", ru: "Диабет (у родителей)" },
+  "healthCard.familyHypertension": { en: "Hypertension (parents)", ru: "Гипертония (у родителей)" },
+
+  "healthCard.stage3": { en: "Lifestyle (risk factors)", ru: "Образ жизни (факторы риска)" },
+  "healthCard.smoking": { en: "Smoking", ru: "Курение" },
+  "healthCard.smokingNo": { en: "Non-smoker", ru: "Не курю" },
+  "healthCard.smokingYes": { en: "Smoker", ru: "Курю" },
+  "healthCard.packYears": { en: "Pack-years", ru: "Пачка/лет" },
+  "healthCard.alcohol": { en: "Alcohol", ru: "Алкоголь" },
+  "healthCard.alcoholNone": { en: "None", ru: "Нет" },
+  "healthCard.alcoholRare": { en: "Rarely", ru: "Редко" },
+  "healthCard.alcoholRegular": { en: "Regularly", ru: "Регулярно" },
+  "healthCard.activity": { en: "Physical activity", ru: "Физическая активность" },
+  "healthCard.activitySedentary": { en: "Sedentary", ru: "Сидячий" },
+  "healthCard.activityModerate": { en: "Moderate", ru: "Умеренная" },
+  "healthCard.activityActive": { en: "Active sport", ru: "Активный спорт" },
+  "healthCard.workConditions": { en: "Work conditions", ru: "Условия труда" },
+  "healthCard.workOffice": { en: "Office", ru: "Офис" },
+  "healthCard.workPhysical": { en: "Physical labor", ru: "Физический труд" },
+  "healthCard.workHazardous": { en: "Hazardous production", ru: "Вредное производство" },
+  "healthCard.workComputer": { en: "Computer work", ru: "Работа с компьютером" },
+
+  "healthCard.stage4": { en: "Specific blocks (optional)", ru: "Специфические блоки (по желанию)" },
+  "healthCard.optional": { en: "Optional", ru: "По желанию" },
+  "healthCard.womenSection": { en: "For women", ru: "Для женщин" },
+  "healthCard.pregnancy": { en: "Pregnancy (weeks)", ru: "Беременность (срок в неделях)" },
+  "healthCard.lactation": { en: "Lactation", ru: "Лактация" },
+  "healthCard.lastPeriod": { en: "Last menstrual period", ru: "Дата последних месячных" },
+  "healthCard.vaccinations": { en: "Vaccinations", ru: "Вакцинация" },
+  "healthCard.vaccName": { en: "Vaccine", ru: "Вакцина" },
+  "healthCard.vaccDate": { en: "Date", ru: "Дата" },
+  "healthCard.addVacc": { en: "+ Add vaccination", ru: "+ Добавить прививку" },
+  "healthCard.wearableData": { en: "Wearable device data", ru: "Данные с носимых устройств" },
+  "healthCard.heartRate": { en: "Resting heart rate (bpm)", ru: "Пульс в покое (уд/мин)" },
+  "healthCard.bloodPressure": { en: "Blood pressure (mmHg)", ru: "Артериальное давление (мм рт.ст.)" },
+  "healthCard.spo2": { en: "SpO₂ (%)", ru: "Сатурация SpO₂ (%)" },
+
+  "healthCard.stage5": { en: "Today's dynamics", ru: "Динамика сегодня" },
+  "healthCard.chiefComplaint": { en: "Chief complaint", ru: "Основная жалоба" },
+  "healthCard.chiefPlaceholder": { en: "Describe what bothers you today…", ru: "Опишите, что беспокоит сегодня…" },
+  "healthCard.vitalsToday": { en: "Vitals today", ru: "Витальные показатели сегодня" },
+  "healthCard.temperature": { en: "Temperature (°C)", ru: "Температура (°C)" },
+  "healthCard.pulse": { en: "Pulse (bpm)", ru: "Пульс (уд/мин)" },
+  "healthCard.bpSystolic": { en: "Systolic", ru: "Систолическое" },
+  "healthCard.bpDiastolic": { en: "Diastolic", ru: "Диастолическое" },
+
+  "healthCard.save": { en: "Save", ru: "Сохранить" },
+  "healthCard.cancel": { en: "Cancel", ru: "Отмена" },
+  "healthCard.add": { en: "Add", ru: "Добавить" },
+  "healthCard.remove": { en: "Remove", ru: "Удалить" },
+  "healthCard.disclaimer": { en: "This service does not replace a doctor. Results are for reference only. In case of acute conditions — call emergency services.", ru: "Данный сервис не заменяет врача. Результаты носят справочный характер. При острых состояниях — вызывайте скорую помощь." },
+
+  "errors.generic": { en: "An error occurred", ru: "Произошла ошибка" },
+  "errors.invalidToken": { en: "Invalid or expired token", ru: "Неверный или истёкший токен" },
+  "common.loading": { en: "Loading...", ru: "Загрузка..." },
 };
 
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
   t: (key: string) => string;
+  formatDate: (date: Date | string, includeYear?: boolean) => string;
 }
 
 const LanguageContext = createContext<LanguageContextType>({
   language: "en",
   setLanguage: () => {},
   t: (key: string) => key,
+  formatDate: () => "",
 });
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
@@ -184,8 +370,25 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     return entry[language] || entry.en || key;
   };
 
+  const formatDate = (date: Date | string, includeYear = false): string => {
+    const d = typeof date === "string" ? new Date(date) : date;
+    const monthKeys = [
+      "month.jan", "month.feb", "month.mar", "month.apr",
+      "month.may", "month.jun", "month.jul", "month.aug",
+      "month.sep", "month.oct", "month.nov", "month.dec"
+    ];
+    const monthName = t(monthKeys[d.getMonth()]);
+    const day = d.getDate();
+    const year = d.getFullYear();
+    
+    if (includeYear) {
+      return `${monthName} ${day}, ${year}`;
+    }
+    return `${monthName} ${day}`;
+  };
+
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage, t, formatDate }}>
       {children}
     </LanguageContext.Provider>
   );

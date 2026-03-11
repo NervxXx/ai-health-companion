@@ -1,0 +1,177 @@
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { AuthBackground } from "@/components/auth/AuthBackground";
+import { ArrowLeft, Lock } from "lucide-react";
+import { useLanguage } from "@/hooks/use-language";
+import { toast } from "sonner";
+
+const ResetPassword = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { t, language } = useLanguage();
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [email, setEmail] = useState("");
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    const stateToken = location.state?.token;
+    const stateEmail = location.state?.email;
+
+    if (!stateToken || !stateEmail) {
+      toast.error(t("errors.invalidToken"));
+      navigate("/forgot-password", { replace: true });
+      return;
+    }
+
+    setToken(stateToken);
+    setEmail(stateEmail);
+  }, [location.state, navigate, t]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+
+    if (password !== confirmPassword) {
+      setError(language === "ru" ? "Пароли не совпадают" : "Passwords do not match");
+      return;
+    }
+
+    if (password.length < 6) {
+      setError(language === "ru" ? "Пароль слишком короткий (минимум 6 символов)" : "Password is too short (minimum 6 characters)");
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      // TODO: Replace with actual API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      toast.success(t("auth.resetPassword.success"));
+      navigate("/login", { replace: true });
+    } catch (err) {
+      console.error("Reset password error:", err);
+      const errorMessage = err instanceof Error ? err.message : t("errors.generic");
+      setError(errorMessage);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  if (!token || !email) {
+    return null;
+  }
+
+  return (
+    <main
+      className="dark-theme-locked w-full"
+      style={{
+        position: 'fixed',
+        inset: 0,
+        overflowY: 'auto',
+        WebkitOverflowScrolling: 'touch',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '1rem',
+        paddingTop: 'max(1rem, var(--safe-area-inset-top))',
+        paddingBottom: 'max(1rem, var(--safe-area-inset-bottom))',
+      }}
+    >
+      <AuthBackground />
+
+      {/* Glass Panel */}
+      <section className="relative z-10 w-full max-w-[400px] flex items-center justify-center perspective-1000">
+        <div className="relative backdrop-blur-2xl bg-card/30 border border-white/10 rounded-xl sm:rounded-2xl p-4 sm:p-5 [@media(max-height:629px)]:p-3 [@media(max-height:629px)]:sm:p-4 shadow-[0_32px_64px_-12px_rgba(0,0,0,0.5),0_-4px_24px_rgba(255,255,255,0.08),inset_0_1px_0_rgba(255,255,255,0.1)] w-full animate-in fade-in zoom-in-95 slide-in-from-bottom-4 duration-700 ease-out ring-1 ring-white/5 before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-br before:from-white/5 before:via-transparent before:to-transparent before:pointer-events-none">
+          {/* Header */}
+          <header className="text-center mb-6 sm:mb-8 [@media(max-height:629px)]:mb-3 [@media(max-height:629px)]:sm:mb-4">
+            <div className="relative inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 via-primary/15 to-primary/10 backdrop-blur-xl border border-primary/30 mb-4 shadow-[0_8px_24px_-4px_rgba(var(--primary),0.4),0_0_0_1px_rgba(255,255,255,0.05)_inset] transition-all duration-500 hover:scale-110 hover:rotate-3 hover:shadow-[0_12px_32px_-6px_rgba(var(--primary),0.6),0_0_0_1px_rgba(255,255,255,0.1)_inset] group">
+              <Lock className="w-8 h-8 text-primary transition-transform duration-500 group-hover:scale-110" />
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-bold text-foreground bg-gradient-to-b from-foreground via-foreground to-foreground/80 bg-clip-text tracking-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]">
+              {t("auth.resetPassword.title")}
+            </h1>
+            <p className="text-sm text-muted-foreground/90 mt-2 font-medium leading-relaxed">
+              {t("auth.resetPassword.subtitle")}
+            </p>
+          </header>
+
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="space-y-5 [@media(max-height:629px)]:space-y-2.5">
+            <div className="space-y-4 [@media(max-height:629px)]:space-y-2">
+              <div className="group relative">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-foreground/90 mb-2 transition-colors duration-300 group-hover:text-primary/80"
+                >
+                  {t("auth.resetPassword.newPassword")}
+                </label>
+                <Input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    setError("");
+                  }}
+                  required
+                  className={`transition-all duration-300 hover:bg-input/70 hover:border-primary/30 focus:bg-input/80 focus:scale-[1.01] focus:shadow-[0_0_0_4px_rgba(var(--primary),0.15),0_2px_12px_rgba(var(--primary),0.2)] focus:border-primary/50 group-hover:shadow-[0_2px_8px_rgba(0,0,0,0.15)] ${error ? "border-red-500/60 focus:border-red-500 focus:ring-red-500/20" : ""}`}
+                />
+              </div>
+              <div className="group relative">
+                <label
+                  htmlFor="confirmPassword"
+                  className="block text-sm font-medium text-foreground/90 mb-2 transition-colors duration-300 group-hover:text-primary/80"
+                >
+                  {t("auth.resetPassword.confirmPassword")}
+                </label>
+                <Input
+                  id="confirmPassword"
+                  type="password"
+                  value={confirmPassword}
+                  onChange={(e) => {
+                    setConfirmPassword(e.target.value);
+                    setError("");
+                  }}
+                  required
+                  className={`transition-all duration-300 hover:bg-input/70 hover:border-primary/30 focus:bg-input/80 focus:scale-[1.01] focus:shadow-[0_0_0_4px_rgba(var(--primary),0.15),0_2px_12px_rgba(var(--primary),0.2)] focus:border-primary/50 group-hover:shadow-[0_2px_8px_rgba(0,0,0,0.15)] ${error ? "border-red-500/60 focus:border-red-500 focus:ring-red-500/20" : ""}`}
+                />
+                {error && (
+                  <p className="text-red-500 text-sm mt-2 animate-in fade-in slide-in-from-top-1 duration-300">
+                    {error}
+                  </p>
+                )}
+              </div>
+            </div>
+            <Button
+              type="submit"
+              variant="neomorphic"
+              size="lg"
+              disabled={isLoading}
+              className="w-full transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_12px_40px_rgba(0,0,0,0.5),0_-3px_20px_rgba(255,255,255,0.08),0_0_20px_rgba(var(--primary),0.3)] active:scale-[0.98] hover:before:opacity-100 mt-6"
+            >
+              {isLoading ? t("common.loading") : t("auth.resetPassword.submit")}
+            </Button>
+          </form>
+
+          <footer className="text-center mt-6 [@media(max-height:629px)]:mt-3">
+            <button
+              onClick={() => navigate("/login")}
+              className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-all duration-300 hover:underline decoration-primary/60 underline-offset-4 hover:-translate-x-1 group hover:drop-shadow-[0_1px_4px_rgba(0,0,0,0.2)]"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2 transition-transform duration-300 group-hover:-translate-x-1 group-hover:scale-110" />
+              {t("auth.forgotPassword.backToLogin")}
+            </button>
+          </footer>
+        </div>
+      </section>
+    </main>
+  );
+};
+
+export default ResetPassword;

@@ -13,6 +13,11 @@ import Profile from "./pages/Profile";
 import VisitPrep from "./pages/VisitPrep";
 import Subscription from "./pages/Subscription";
 import NotFound from "./pages/NotFound";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
+import HealthCard from "./pages/HealthCard";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +38,11 @@ const App = () => (
             <Route path="/profile" element={<Profile />} />
             <Route path="/settings" element={<Profile />} />
             <Route path="/subscription" element={<Subscription />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/health-card" element={<HealthCard />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
